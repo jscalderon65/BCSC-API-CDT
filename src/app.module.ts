@@ -6,6 +6,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './utils/interceptors/global-exception.interceptor';
 import { credentials } from './utils/constants/credentials';
 import { messages } from './utils/constants/messages';
+import { FixedRateCertificatesModule } from './fixed_rate_certificates/fixed_rate_certificates.module';
 
 const CONNECTION_MESSAGES = messages.CONNECTION_MESSAGES;
 @Module({
@@ -24,6 +25,7 @@ const CONNECTION_MESSAGES = messages.CONNECTION_MESSAGES;
         return connection;
       },
     }),
+    FixedRateCertificatesModule,
   ],
   controllers: [AppController],
   providers: [
