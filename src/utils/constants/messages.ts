@@ -21,4 +21,9 @@ export const messages = {
     SWAGGER_VERSION: '1.0',
     SWAGGER_ROUTE: 'docs',
   },
+  FIXED_RATE_CDT_ERRORS: {
+    NOT_ENOUGH_MONEY: 'You dont have enough money',
+    AMOUNT_NOT_IN_RATE_LIMIT:
+      'Amount to deposit is not within the range of the selected interest rate.',
+  },
 };

@@ -1,6 +1,6 @@
 export const mongoDb = {
   SCHEMA_NAMES: {
-    CDT: 'cdt',
+    FIXED_RATE_CDT: 'fixed_rate_cdt',
     FIXED_RATE_CERTIFICATES: 'fixed_rate_certificates',
   },
 };

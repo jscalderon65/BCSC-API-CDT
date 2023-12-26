@@ -9,6 +9,7 @@ const ABOUT = messages.ABOUT;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('cdt_manager');
   const options = new DocumentBuilder()
     .setTitle(ABOUT.API_TITLE)
     .setDescription(ABOUT.API_DESCRIPTION)
