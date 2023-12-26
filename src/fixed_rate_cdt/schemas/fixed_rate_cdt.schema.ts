@@ -19,13 +19,16 @@ export class FixedRateCdt {
   depositDays: number;
 
   @Prop({ required: true })
-  returnDepositDate: string;
+  returnDepositDate: Date;
 
   @Prop({ type: Types.ObjectId, ref: FIXED_RATE_CERTIFICATES, required: true })
   fixed_rate_id: Types.ObjectId | FixedRateCertificateDocument;
 
   @Prop({ default: false })
   is_liquidated: boolean;
+
+  @Prop({ default: false })
+  has_liquidation_problems: boolean;
 }
 
 export const FixedRateCdtSchema = SchemaFactory.createForClass(FixedRateCdt);

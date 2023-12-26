@@ -8,6 +8,7 @@ import { credentials } from './utils/constants/credentials';
 import { messages } from './utils/constants/messages';
 import { FixedRateCertificatesModule } from './fixed_rate_certificates/fixed_rate_certificates.module';
 import { FixedRateCdtModule } from './fixed_rate_cdt/fixed_rate_cdt.module';
+import { FixedRateCdtLiquidationModule } from './fixed_rate_cdt_liquidation/fixed_rate_cdt_liquidation.module';
 
 const CONNECTION_MESSAGES = messages.CONNECTION_MESSAGES;
 @Module({
@@ -26,8 +27,9 @@ const CONNECTION_MESSAGES = messages.CONNECTION_MESSAGES;
         return connection;
       },
     }),
-    FixedRateCertificatesModule,
     FixedRateCdtModule,
+    FixedRateCertificatesModule,
+    FixedRateCdtLiquidationModule,
   ],
   controllers: [AppController],
   providers: [

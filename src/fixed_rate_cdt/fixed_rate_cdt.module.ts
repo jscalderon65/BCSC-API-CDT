@@ -19,5 +19,6 @@ const { FIXED_RATE_CDT } = mongoDb.SCHEMA_NAMES;
   ],
   controllers: [FixedRateCdtController],
   providers: [FixedRateCdtService],
+  exports: [FixedRateCdtService],
 })
 export class FixedRateCdtModule {}

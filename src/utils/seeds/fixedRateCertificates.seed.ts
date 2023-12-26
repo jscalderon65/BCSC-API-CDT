@@ -1,5 +1,5 @@
 import { credentials } from '../constants/credentials';
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import { mongoDb } from '../constants/mongoDb';
 
 const { FIXED_RATE_CERTIFICATES } = mongoDb.SCHEMA_NAMES;
@@ -18,6 +18,19 @@ async function insertData() {
 
     const FixedRateCertificatesToInsert = [
       {
+        _id: new Types.ObjectId('6584ecca91758fb39e167431'),
+        from: 0,
+        to: 100000000000,
+        rates: [
+          {
+            minDaysLimit: 0,
+            maxDaysLimit: 10,
+            rate: 0.7,
+          },
+        ],
+      },
+      {
+        _id: new Types.ObjectId('e584ecca91758fb39e167431'),
         from: 500000,
         to: 9999999,
         rates: [
@@ -80,6 +93,7 @@ async function insertData() {
         ],
       },
       {
+        _id: new Types.ObjectId('b584ecca91758fb39e167431'),
         from: 40000000,
         to: 99999999,
         rates: [
@@ -111,6 +125,7 @@ async function insertData() {
         ],
       },
       {
+        _id: new Types.ObjectId('7584ecca91758fb39e167431'),
         from: 100000000,
         to: 199999999,
         rates: [
@@ -142,6 +157,7 @@ async function insertData() {
         ],
       },
       {
+        _id: new Types.ObjectId('8584ecca91758fb39e167431'),
         from: 200000000,
         to: 499999999,
         rates: [
@@ -173,6 +189,7 @@ async function insertData() {
         ],
       },
       {
+        _id: new Types.ObjectId('d584ecca91758fb39e167431'),
         from: 500000000,
         to: 999999999,
         rates: [

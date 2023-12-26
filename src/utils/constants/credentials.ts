@@ -7,4 +7,6 @@ export const credentials = {
   PORT: process.env.PORT,
   CLIENT_AXIOS_INSTANCE: 'AXIOS_INSTANCE',
   URL_CLIENT_SERVICE: process.env.URL_CLIENT_SERVICE,
+  TIME_ZONE: process.env.TZ,
+  SCHEDULE_TEST: process.env.SCHEDULE_TEST === 'true',
 };

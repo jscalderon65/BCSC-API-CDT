@@ -28,7 +28,13 @@ async function bootstrap() {
       },
     }),
   );
+  process.env.TZ = credentials.TIME_ZONE;
   await app.listen(credentials.PORT);
-  new Logger().log('App running on port: ' + credentials.PORT);
+  new Logger().log(
+    'App running on port: ' +
+      credentials.PORT +
+      ' and TZ: ' +
+      credentials.TIME_ZONE,
+  );
 }
 bootstrap();

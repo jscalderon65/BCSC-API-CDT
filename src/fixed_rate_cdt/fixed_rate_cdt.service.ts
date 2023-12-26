@@ -15,7 +15,8 @@ import {
 import { EntityRelationship } from '../interfaces/validations.interface';
 import { FixedRateCertificatesService } from '../fixed_rate_certificates/fixed_rate_certificates.service';
 import { bankingAccountI } from '../interfaces/bankingAccountService.interface';
-import { addDaysToActualDate } from '../utils/date/date.utils';
+import { addDaysToActualDate, getActualDay } from '../utils/date/date.utils';
+import { rateStructure } from '../interfaces/fixedRateCertificate.interface';
 
 const CLIENT_AXIOS_INSTANCE = credentials.CLIENT_AXIOS_INSTANCE;
 const { GET_BANKING_ACCOUNT_BY_ID } =
@@ -94,28 +95,37 @@ export class FixedRateCdtService {
       const fromLimit = fixedRateCertificates.from;
       const toLimit = fixedRateCertificates.to;
 
+      const ratesValidation = fixedRateCertificates.rates.find(
+        (rate: rateStructure) =>
+          cdtDays >= rate.minDaysLimit && cdtDays <= rate.maxDaysLimit,
+      );
+
       const depositedAmountValidation =
         depositedAmount >= fromLimit && fromLimit <= toLimit;
 
-      if (depositedAmountValidation) {
-        const newFixedRateCdt = {
-          ...createFixedRateCdtDto,
-          returnDepositDate: newDate,
-        };
-
-        const editedBankingAccount = await this.axiosInstance.patch(
-          GET_BANKING_ACCOUNT_BY_ID(createFixedRateCdtDto.account_id),
-          { available_balance: newBalance },
-        );
-
-        const newCdt = await this.fixedRateCdtModel.create(newFixedRateCdt);
-        return {
-          fixedRateCdt: newCdt,
-          bankingAccount: editedBankingAccount.data,
-        };
-      } else {
+      if (!depositedAmountValidation) {
         throw new Error(FIXED_RATE_CDT_ERRORS.AMOUNT_NOT_IN_RATE_LIMIT);
       }
+
+      if (!ratesValidation) {
+        throw new Error(FIXED_RATE_CDT_ERRORS.DEPOSIT_DAYS_NOT_IN_RATE_LIMIT);
+      }
+
+      const newFixedRateCdt = {
+        ...createFixedRateCdtDto,
+        returnDepositDate: new Date(newDate),
+      };
+
+      const editedBankingAccount = await this.axiosInstance.patch(
+        GET_BANKING_ACCOUNT_BY_ID(createFixedRateCdtDto.account_id),
+        { available_balance: newBalance },
+      );
+
+      const newCdt = await this.fixedRateCdtModel.create(newFixedRateCdt);
+      return {
+        fixedRateCdt: newCdt,
+        bankingAccount: editedBankingAccount.data,
+      };
     } else {
       throw new Error(FIXED_RATE_CDT_ERRORS.NOT_ENOUGH_MONEY);
     }
@@ -123,6 +133,15 @@ export class FixedRateCdtService {
 
   findAll(request: Request): Promise<FixedRateCdt[]> {
     return this.fixedRateCdtModel.find(request.query);
+  }
+
+  findAllTodayLiquidationFixedRateCdt(): Promise<FixedRateCdt[]> {
+    const date = getActualDay();
+    return this.fixedRateCdtModel.find({
+      returnDepositDate: { $lte: date },
+      is_liquidated: false,
+      has_liquidation_problems: false,
+    });
   }
 
   async findOne(id: string) {
