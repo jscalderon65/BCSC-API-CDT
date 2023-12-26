@@ -5,6 +5,7 @@ import { mongoDb } from '../constants/mongoDb';
 const { FIXED_RATE_CERTIFICATES } = mongoDb.SCHEMA_NAMES;
 const MONGO_URI = credentials.MONGO_URI;
 
+//CERTIFICADOS DE DEPÓSITO A TÉRMINO - TASA FIJA Vigentes a partir del 6 de diciembre de 2023
 async function insertData() {
   try {
     await mongoose.connect(MONGO_URI);
