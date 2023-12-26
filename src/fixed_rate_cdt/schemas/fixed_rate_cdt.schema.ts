@@ -23,6 +23,9 @@ export class FixedRateCdt {
 
   @Prop({ type: Types.ObjectId, ref: FIXED_RATE_CERTIFICATES, required: true })
   fixed_rate_id: Types.ObjectId | FixedRateCertificateDocument;
+
+  @Prop({ default: false })
+  is_liquidated: boolean;
 }
 
 export const FixedRateCdtSchema = SchemaFactory.createForClass(FixedRateCdt);
