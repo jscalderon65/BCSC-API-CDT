@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { credentials } from './credentials';
 
 export const messages = {
